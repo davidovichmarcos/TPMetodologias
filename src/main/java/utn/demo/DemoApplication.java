@@ -4,8 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import utn.demo.model.Persona;
-import utn.demo.repositories.PersonaRepository;
+import utn.demo.model.Client;
+import utn.demo.repositories.ClientRepository;
+
 @Configuration
 @EnableSwagger2
 @SpringBootApplication
@@ -16,9 +17,9 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 
 
-		Persona perosona;
+		Client client;
 
-		PersonaRepository personaRepository;
+		ClientRepository clientRepository;
 
 
 	}
