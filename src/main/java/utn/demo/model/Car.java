@@ -16,6 +16,9 @@ public class Car {
 
     @Id
     private String patent;
+    private String brand;
+    private String model;
+    private Integer year;
     @OneToOne
     private Client client;
 
