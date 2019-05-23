@@ -10,6 +10,7 @@ import utn.demo.repositories.ClientRepository;
 @Configuration
 @EnableSwagger2
 @SpringBootApplication
+
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -20,6 +21,7 @@ public class DemoApplication {
 		Client client;
 
 		ClientRepository clientRepository;
+
 
 
 	}

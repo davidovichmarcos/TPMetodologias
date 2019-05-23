@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +15,12 @@ import javax.persistence.OneToOne;
 public class Car {
 
     @Id
+    private Integer id;
     private String patent;
     private String brand;
     private String model;
     private Integer year;
-    @OneToOne
+    @ManyToOne
     private Client client;
 
 }

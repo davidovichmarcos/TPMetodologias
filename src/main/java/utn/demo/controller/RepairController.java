@@ -1,31 +1,34 @@
 package utn.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import utn.demo.model.Repair;
 import utn.demo.repositories.RepairRepository;
+import utn.demo.service.RepairService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/repair")
 @RestController
 public class RepairController {
 
     @Autowired
-    RepairRepository repairRepository;
+    RepairService repairService;
 
     @PostMapping("")
     public void addRepair(@RequestBody Repair r) {
-        repairRepository.save(r);
+        repairService.addRepair(r);
     }
 
     @GetMapping("")
     public List<Repair> getAll(){
-        return repairRepository.findAll();
+        return repairService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Repair> getRepairById(@RequestParam Integer id) {
+        return repairService.getRepairById(id);
     }
 
 }
