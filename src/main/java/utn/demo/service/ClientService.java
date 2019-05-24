@@ -1,12 +1,13 @@
 package utn.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import utn.demo.model.Client;
 import utn.demo.repositories.ClientRepository;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class ClientService {
 
     @Autowired

@@ -22,8 +22,6 @@ export default class ClientCreate extends Component {
   async submitForm() {
     /// meter en process.env
     var url = "http://localhost:8080/client";
-
-    // sacar de this.state
     var data = this.state.formData;
     var settings = {
       method: "POST",
@@ -32,7 +30,7 @@ export default class ClientCreate extends Component {
         "Content-Type": "application/json"
       }
     };
-    const log = await fetch(url, settings)
+    return await fetch(url, settings)
       .then(res => res.json())
       .then(res => {
         console.log(res);
@@ -58,12 +56,43 @@ export default class ClientCreate extends Component {
             id=""
             placeholder="Nombre"
             onChange={this.handleChange}
+            required
           />
           <input
             type="text"
             name="lastname"
             id=""
             placeholder="Apellido"
+            onChange={this.handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="dni"
+            id=""
+            placeholder="Dni"
+            required
+            onChange={this.handleChange}
+          />
+          <input
+            type="number"
+            name="phone"
+            id=""
+            placeholder="Telefono"
+            onChange={this.handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            id=""
+            placeholder="Email"
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="address"
+            id=""
+            placeholder="Direccion"
             onChange={this.handleChange}
           />
           <button type="submit"> CREAR </button>

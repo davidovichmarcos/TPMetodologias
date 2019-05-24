@@ -8,6 +8,7 @@ import CarSearch from "./components/CarSearch";
 import CarData from "./components/CarData";
 import CarCreate from "./components/CarCreate";
 import ClientCreate from "./components/ClientCreate";
+import Repair from "./components/repair";
 import Footer from "./components/Footer";
 
 const Style = styled.header`
@@ -23,7 +24,7 @@ function App() {
       <ClientCreate />
       <CarCreate />
       <CarData />
-      <h1>BODY</h1>
+      <Repair />
       <Footer />
     </Style>
   );
