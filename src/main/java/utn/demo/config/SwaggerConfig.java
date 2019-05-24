@@ -35,7 +35,6 @@ public class SwaggerConfig {
                 .termsOfServiceUrl("")
                 .version("1.0.0")
                 .build();
-
     }
 
 }

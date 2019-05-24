@@ -6,7 +6,6 @@ import utn.demo.model.BillReceipt;
 import utn.demo.service.BillReceiptService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/billreceipt")
 @RestController
@@ -26,8 +25,13 @@ public class BillReceiptController {
     }
 
     @GetMapping("/{id}")
-    public Optional<BillReceipt> getBillReceiptById(@RequestParam Integer id) {
+    public BillReceipt getBillReceiptById(@RequestParam Integer id) {
         return billReceiptService.getBillReceiptById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBillReceiptById(@RequestParam Integer id) {
+        billReceiptService.deleteBillReceiptById(id);
     }
 
 }

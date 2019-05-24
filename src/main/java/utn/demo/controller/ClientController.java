@@ -6,7 +6,6 @@ import utn.demo.model.Client;
 import utn.demo.service.ClientService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/client")
 @RestController
@@ -26,10 +25,15 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> getClientById(@RequestParam Integer id) {
+    public Client getClientById(@RequestParam Integer id) {
         return clientService.getClientById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteClientById(@RequestParam Integer id) {
+        clientService.deleteClientById(id);
+    }
+    
 }
 
 

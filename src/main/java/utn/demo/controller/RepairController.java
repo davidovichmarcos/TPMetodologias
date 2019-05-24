@@ -3,11 +3,9 @@ package utn.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utn.demo.model.Repair;
-import utn.demo.repositories.RepairRepository;
 import utn.demo.service.RepairService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/repair")
 @RestController
@@ -27,8 +25,13 @@ public class RepairController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Repair> getRepairById(@RequestParam Integer id) {
+    public Repair getRepairById(@RequestParam Integer id) {
         return repairService.getRepairById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRepairById(@RequestParam Integer id) {
+        repairService.deleteRepairById(id);
     }
 
 }

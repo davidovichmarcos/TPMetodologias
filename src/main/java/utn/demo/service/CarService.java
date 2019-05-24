@@ -2,15 +2,14 @@ package utn.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utn.demo.config.LoggerConfig;
 import utn.demo.model.Car;
 import utn.demo.repositories.CarRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarService {
-
 
     @Autowired
     CarRepository carRepository;
@@ -23,7 +22,17 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public Optional<Car> getCarById(Integer id) {
-        return carRepository.findById(id);
+    public Car getCarById(Integer id) {
+        return carRepository.findById(id).orElse(null);
     }
+
+    public void deleteCarById(Integer id) {
+        Car carToDelete = getCarById(id);
+        if (!carToDelete.equals(null)) {
+            carRepository.delete(carToDelete);
+        } else {
+            LoggerConfig.LOGGER.error("The Car doesn't exist");
+        }
+    }
+
 }

@@ -14,15 +14,11 @@ import utn.demo.repositories.ClientRepository;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(DemoApplication.class, args);
-
 
 		Client client;
 
 		ClientRepository clientRepository;
-
-
 
 	}
 
