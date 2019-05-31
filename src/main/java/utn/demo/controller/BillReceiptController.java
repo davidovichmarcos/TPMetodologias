@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import utn.demo.model.BillReceipt;
 import utn.demo.service.BillReceiptService;
 
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestMapping("/billreceipt")
@@ -14,22 +15,22 @@ public class BillReceiptController {
     @Autowired
     BillReceiptService billReceiptService;
 
-    @PostMapping("")
-    public void addBillReceipt(@RequestBody BillReceipt b) {
-        billReceiptService.addBillReceipt(b);
+    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON})
+    public BillReceipt addBillReceipt(@RequestBody BillReceipt b) {
+        return billReceiptService.addBillReceipt(b);
     }
 
-    @GetMapping("")
+    @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON})
     public List<BillReceipt> getAll(){
         return billReceiptService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public BillReceipt getBillReceiptById(@RequestParam Integer id) {
         return billReceiptService.getBillReceiptById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public void deleteBillReceiptById(@RequestParam Integer id) {
         billReceiptService.deleteBillReceiptById(id);
     }

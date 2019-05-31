@@ -14,8 +14,9 @@ public class CarService {
     @Autowired
     CarRepository carRepository;
 
-    public void saveCar(Car c ){
+    public Car saveCar(Car c ){
         carRepository.save(c);
+        return c;
     }
 
     public List<Car> getAll(){

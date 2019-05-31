@@ -14,8 +14,9 @@ public class RepairService {
     @Autowired
     RepairRepository repairRepository;
 
-    public void addRepair(Repair r) {
+    public Repair addRepair(Repair r) {
         repairRepository.save(r);
+        return r;
     }
 
     public List<Repair> getAll (){

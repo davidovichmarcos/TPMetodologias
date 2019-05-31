@@ -14,8 +14,9 @@ public class BillReceiptService {
     @Autowired
     BillReceiptRepository billReceiptRepository;
 
-    public void addBillReceipt(BillReceipt b) {
+    public BillReceipt addBillReceipt(BillReceipt b) {
         billReceiptRepository.save(b);
+        return b;
     }
 
     public List<BillReceipt> getAll() {

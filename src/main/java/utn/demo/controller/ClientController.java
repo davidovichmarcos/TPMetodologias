@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import utn.demo.model.Client;
 import utn.demo.service.ClientService;
 
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestMapping("/client")
@@ -14,22 +16,22 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @PostMapping("")
-    public void addClient(@RequestBody Client c) {
-        clientService.addClient(c);
+    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON})
+    public Client addClient(@RequestBody Client c ) {
+        return clientService.addClient(c);
     }
 
-    @GetMapping("")
+    @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON})
     public List<Client> getAll() {
         return clientService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public Client getClientById(@RequestParam Integer id) {
         return clientService.getClientById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public void deleteClientById(@RequestParam Integer id) {
         clientService.deleteClientById(id);
     }

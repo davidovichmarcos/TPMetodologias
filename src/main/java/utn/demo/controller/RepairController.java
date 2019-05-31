@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import utn.demo.model.Repair;
 import utn.demo.service.RepairService;
 
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RequestMapping("/repair")
@@ -14,9 +15,9 @@ public class RepairController {
     @Autowired
     RepairService repairService;
 
-    @PostMapping("")
-    public void addRepair(@RequestBody Repair r) {
-        repairService.addRepair(r);
+    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON})
+    public Repair addRepair(@RequestBody Repair r) {
+        return repairService.addRepair(r);
     }
 
     @GetMapping("")
@@ -24,12 +25,12 @@ public class RepairController {
         return repairService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public Repair getRepairById(@RequestParam Integer id) {
         return repairService.getRepairById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON})
     public void deleteRepairById(@RequestParam Integer id) {
         repairService.deleteRepairById(id);
     }

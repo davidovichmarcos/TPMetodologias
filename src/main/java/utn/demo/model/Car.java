@@ -14,6 +14,7 @@ import java.util.List;
 public class Car {
 
     @Id
+    @GeneratedValue
     private Integer id;
     private String patent;
     private String brand;
