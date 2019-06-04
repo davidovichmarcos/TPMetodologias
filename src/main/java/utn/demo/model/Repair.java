@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Data
@@ -16,11 +14,14 @@ import java.sql.Date;
 public class Repair {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String detail;
     private Date date;
     private Long totalPrice;
     private Long workPrice;
     private Long sparePrice;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "repair-Car", referencedColumnName = "id")
+    private Car car;
 }
