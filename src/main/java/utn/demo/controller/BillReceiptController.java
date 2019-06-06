@@ -1,6 +1,7 @@
 package utn.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import utn.demo.model.BillReceipt;
 import utn.demo.service.BillReceiptService;
@@ -15,15 +16,14 @@ public class BillReceiptController {
 
     @Autowired
     BillReceiptService billReceiptService;
-
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON})
     public BillReceipt addBillReceipt(@RequestBody BillReceipt b) {
         return billReceiptService.addBillReceipt(b);
     }
 
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON})
-    public List<BillReceipt> getAll(@RequestHeader(value = "User-Agent") String version){
-        System.out.println(version);
+    public List<BillReceipt> getAll(){
         return billReceiptService.getAll();
     }
 

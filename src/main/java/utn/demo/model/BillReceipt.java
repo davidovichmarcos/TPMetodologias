@@ -1,12 +1,13 @@
 package utn.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -17,10 +18,12 @@ public class BillReceipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer number;
-    private Date date;
+
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private LocalDate date;
     private Long total;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billReceipt-Client",referencedColumnName = "id")
+    @JoinColumn(name = "client",referencedColumnName = "id")
     @JsonIgnore
     private Client client;
 
