@@ -1,13 +1,30 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Style = styled.header`
-  background: lightgrey;
-`;
+const Style = styled.div``;
+
+function SelectOwner({ clients, clientChange }) {
+  if (clients.length > 0) {
+    return (
+      <select name="client" id="" onChange={clientChange} required>
+        {clients.map((client, i) => {
+          return (
+            <option value={client.id} key={i}>
+              {client.name + " " + client.lastName}{" "}
+            </option>
+          );
+        })}
+      </select>
+    );
+  } else {
+    return "CREAR CLIENTES";
+  }
+}
 
 export default class CarCreate extends Component {
   state = {
-    formData: {}
+    formData: {},
+    clientList: []
   };
 
   handleChange = event => {
@@ -19,11 +36,23 @@ export default class CarCreate extends Component {
     });
   };
 
+  clientChange = event => {
+    let client = this.state.clientList[event.target.value - 1];
+    this.setState({
+      ...this.state,
+      formData: {
+        ...this.state.formData,
+        client: client
+      }
+    });
+  };
+
   //MODIFICAR!
   async submitForm() {
     /// meter en process.env
-    var url = "http://localhost:8080/client";
+    var url = "http://localhost:8080/car";
     var data = this.state.formData;
+    console.log("PAQUETE A ENVIAR: ", data);
     var settings = {
       method: "POST",
       body: JSON.stringify(data),
@@ -34,9 +63,27 @@ export default class CarCreate extends Component {
     return await fetch(url, settings)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        console.log("RESPUSTA CAR CREATE: ", res);
       })
       .catch(error => console.error("Error:", error));
+  }
+
+  async getClients() {
+    var url = "http://localhost:8080/client";
+    return await fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        return res;
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
+  async componentDidMount() {
+    const fetchedData = await this.getClients();
+    this.setState({
+      ...this.state,
+      clientList: fetchedData
+    });
   }
 
   render() {
@@ -84,12 +131,10 @@ export default class CarCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <select name="client" id="" onChange={this.handleChange} required>
-            <option value="Titular 1">Titular 1</option>
-            <option value="Titular 2">Titular 2</option>
-            <option value="Titular 3">Titular 3</option>
-            <option value="Titular 4">Titular 4</option>
-          </select>
+          <SelectOwner
+            clients={this.state.clientList}
+            clientChange={this.clientChange}
+          />
           <button type="submit"> CREAR </button>
         </form>
       </Style>

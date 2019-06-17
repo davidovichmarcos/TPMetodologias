@@ -1,60 +1,64 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { Header, Navbar, Nav, Icon, FlexboxGrid } from "rsuite";
+import { Link } from "react-router-dom";
 
-const Style = styled.header`
-  background: darkgrey;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const Logo = styled.div`
-  font-size: 2.5em;
-  font-weight: bold;
-`;
-
-const Nav = styled.nav`
-  ul {
-    justify-self: end;
-    display: inline;
-    li {
-      display: inline;
-      padding: 0px 10px;
-
-      a {
-        text-decoration: none;
-        color: black;
-        :hover {
-          color: blue;
-        }
-      }
-    }
-  }
-`;
-
-let navdata = [
-  { name: "Home", link: "#home" },
-  { name: "Cars", link: "#cars" },
-  { name: "Help", link: "#help" }
+const navdata = [
+  { name: "Home", link: "/home", icon: "home" },
+  { name: "Login", link: "/login", icon: "sign-in" },
+  { name: "Clients", link: "/clients", icon: "avatar" },
+  { name: "Cars", link: "/cars", icon: "car" },
+  { name: "Help", link: "/help", icon: "question-circle" }
 ];
 
-export default class Header extends Component {
+const NavLink = props => <Nav.Item componentClass={Link} {...props} />;
+
+export default class myHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.state = {
+      activeKey: null
+    };
+  }
+  handleSelect(eventKey) {
+    this.setState({
+      activeKey: eventKey
+    });
+  }
+
   render() {
+    const { activeKey } = this.state;
+
     let fillMenu = navdata.map((link, index) => {
       return (
-        <li>
-          <a href={link.link}>{link.name}</a>
-        </li>
+        <NavLink to={link.link} icon={<Icon icon={link.icon} />}>
+          {link.name}
+        </NavLink>
       );
     });
+
     return (
-      <Style>
-        <Logo>LOGO</Logo>
-        <Nav>
-          <ul>{fillMenu}</ul>
-        </Nav>
-      </Style>
+      <Header>
+        <Navbar appearance="inverse">
+          <FlexboxGrid justify="center">
+            <FlexboxGrid.Item colspan={20}>
+              <Navbar.Header>
+                <h2>MECHANICS APP</h2>
+              </Navbar.Header>
+              <Navbar.Body>
+                <Nav
+                  pullRight
+                  pills="true"
+                  activeKey={activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  {fillMenu}
+                </Nav>
+              </Navbar.Body>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Navbar>
+      </Header>
     );
   }
 }

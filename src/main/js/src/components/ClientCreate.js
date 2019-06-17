@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Style = styled.header`
-  background: lightgrey;
-`;
+import ClientList from "./ClientList";
+
+const Style = styled.div``;
 
 export default class ClientCreate extends Component {
   state = {
-    formData: {}
+    formData: {},
+    clientList: [{}]
   };
 
   handleChange = event => {
@@ -19,7 +20,7 @@ export default class ClientCreate extends Component {
     });
   };
 
-  async submitForm() {
+  async submitForm(e) {
     /// meter en process.env
     var url = "http://localhost:8080/client";
     var data = this.state.formData;
@@ -33,9 +34,33 @@ export default class ClientCreate extends Component {
     return await fetch(url, settings)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        if (res.id == null) {
+          //hacer algo cuando resive ok.
+          console.log("------ LLEGO MAL!");
+        } else {
+          console.log("------ LLEGO BIEN!");
+        }
+        //console.log(res);
       })
       .catch(error => console.error("Error:", error));
+  }
+
+  async getClients() {
+    var url = "http://localhost:8080/client";
+    return await fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        return res;
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
+  async componentDidMount() {
+    const fetchedData = await this.getClients();
+    this.setState({
+      ...this.state,
+      clientList: fetchedData
+    });
   }
 
   render() {
@@ -47,7 +72,7 @@ export default class ClientCreate extends Component {
           method="post"
           onSubmit={e => {
             e.preventDefault();
-            this.submitForm();
+            this.submitForm(e);
           }}
         >
           <input
@@ -60,7 +85,7 @@ export default class ClientCreate extends Component {
           />
           <input
             type="text"
-            name="lastname"
+            name="lastName"
             id=""
             placeholder="Apellido"
             onChange={this.handleChange}
@@ -70,6 +95,7 @@ export default class ClientCreate extends Component {
             type="number"
             name="dni"
             id=""
+            min="0"
             placeholder="Dni"
             required
             onChange={this.handleChange}
@@ -78,6 +104,7 @@ export default class ClientCreate extends Component {
             type="number"
             name="phone"
             id=""
+            min="0"
             placeholder="Telefono"
             onChange={this.handleChange}
           />
@@ -97,6 +124,11 @@ export default class ClientCreate extends Component {
           />
           <button type="submit"> CREAR </button>
         </form>
+        {this.state.clientList.length > 0 ? (
+          <ClientList clientList={this.state.clientList} />
+        ) : (
+          ""
+        )}
       </Style>
     );
   }

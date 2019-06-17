@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Style = styled.header`
-  background: lightgrey;
-`;
+const Style = styled.div``;
 
 export default class CarData extends Component {
   render() {
