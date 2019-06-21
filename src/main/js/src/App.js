@@ -15,7 +15,7 @@ import Footer from "./components/Footer";
 
 import "./App.css";
 import "rsuite/dist/styles/rsuite.min.css";
-import "custom-theme.less";
+//import "custom-theme.less";
 
 const Style = styled.div``;
 

@@ -1,12 +1,23 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import CarList from "./CarList";
+
 const Style = styled.div``;
 
 function SelectOwner({ clients, clientChange }) {
   if (clients.length > 0) {
     return (
-      <select name="client" id="" onChange={clientChange} required>
+      <select
+        name="client"
+        id=""
+        onChange={clientChange}
+        defaultValue={"DEFAULT"}
+        required
+      >
+        <option disabled value="DEFAULT">
+          -- select an owner --
+        </option>
         {clients.map((client, i) => {
           return (
             <option value={client.id} key={i}>
@@ -24,7 +35,8 @@ function SelectOwner({ clients, clientChange }) {
 export default class CarCreate extends Component {
   state = {
     formData: {},
-    clientList: []
+    clientList: [],
+    carList: []
   };
 
   handleChange = event => {
@@ -52,7 +64,6 @@ export default class CarCreate extends Component {
     /// meter en process.env
     var url = "http://localhost:8080/car";
     var data = this.state.formData;
-    console.log("PAQUETE A ENVIAR: ", data);
     var settings = {
       method: "POST",
       body: JSON.stringify(data),
@@ -63,27 +74,40 @@ export default class CarCreate extends Component {
     return await fetch(url, settings)
       .then(res => res.json())
       .then(res => {
-        console.log("RESPUSTA CAR CREATE: ", res);
+        this.fetchCars();
       })
       .catch(error => console.error("Error:", error));
   }
 
-  async getClients() {
+  async fetchClients() {
     var url = "http://localhost:8080/client";
     return await fetch(url)
       .then(res => res.json())
       .then(res => {
-        return res;
+        this.setState({
+          ...this.state,
+          clientList: res
+        });
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
+  async fetchCars() {
+    var url = "http://localhost:8080/car";
+    return await fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          ...this.state,
+          carList: res
+        });
       })
       .catch(error => console.error("Error:", error));
   }
 
   async componentDidMount() {
-    const fetchedData = await this.getClients();
-    this.setState({
-      ...this.state,
-      clientList: fetchedData
-    });
+    this.fetchClients();
+    this.fetchCars();
   }
 
   render() {
@@ -137,6 +161,9 @@ export default class CarCreate extends Component {
           />
           <button type="submit"> CREAR </button>
         </form>
+        <div>
+          <CarList carList={this.state.carList} />
+        </div>
       </Style>
     );
   }

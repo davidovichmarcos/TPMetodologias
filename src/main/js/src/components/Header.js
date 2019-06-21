@@ -29,9 +29,9 @@ export default class myHeader extends Component {
   render() {
     const { activeKey } = this.state;
 
-    let fillMenu = navdata.map((link, index) => {
+    const fillMenu = navdata.map((link, i) => {
       return (
-        <NavLink to={link.link} icon={<Icon icon={link.icon} />}>
+        <NavLink to={link.link} key={i} icon={<Icon icon={link.icon} />}>
           {link.name}
         </NavLink>
       );

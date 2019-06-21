@@ -38,29 +38,34 @@ export default class ClientCreate extends Component {
           //hacer algo cuando resive ok.
           console.log("------ LLEGO MAL!");
         } else {
-          console.log("------ LLEGO BIEN!");
+          this.fetchClients();
         }
-        //console.log(res);
       })
       .catch(error => console.error("Error:", error));
   }
 
-  async getClients() {
+  async fetchClients() {
     var url = "http://localhost:8080/client";
     return await fetch(url)
       .then(res => res.json())
       .then(res => {
-        return res;
+        this.setState({
+          ...this.state,
+          clientList: res
+        });
       })
       .catch(error => console.error("Error:", error));
   }
 
-  async componentDidMount() {
-    const fetchedData = await this.getClients();
+  resetForm = () => {
     this.setState({
       ...this.state,
-      clientList: fetchedData
+      formData: {}
     });
+  };
+
+  async componentDidMount() {
+    this.fetchClients();
   }
 
   render() {

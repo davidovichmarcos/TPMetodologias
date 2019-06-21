@@ -1,42 +1,34 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import CarElement from "./CarList";
+
 const Style = styled.div``;
 
 export default class CarSearch extends Component {
   state = {
-    formData: {}
+    keyword: ""
   };
 
   handleChange = event => {
     this.setState({
-      formData: {
-        ...this.state.formData,
-        [event.target.name]: event.target.value
-      }
+      ...this.state,
+      [event.target.name]: event.target.value
     });
   };
 
   //modificar!
   async submitForm() {
     /// meter en process.env
-    var url = "http://localhost:8080/client";
-    var data = this.state.formData;
-    var settings = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    return await fetch(url, settings)
+    var url = "http://localhost:8080/car/?id=" + this.state.keyword;
+    console.log(`Fetching ${this.state.keyword} to ${url}`);
+    return await fetch(url)
       .then(res => res.json())
       .then(res => {
         console.log(res);
       })
       .catch(error => console.error("Error:", error));
   }
-
   render() {
     return (
       <Style>
