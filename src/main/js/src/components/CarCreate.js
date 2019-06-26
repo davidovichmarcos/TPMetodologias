@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Input, Button } from "rsuite";
 
 import CarList from "./CarList";
 
@@ -123,7 +124,7 @@ export default class CarCreate extends Component {
           }}
         >
           {" "}
-          <input
+          <Input
             type="text"
             name="patent"
             id="patentInput"
@@ -131,7 +132,7 @@ export default class CarCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Input
             type="text"
             name="brand"
             id="brandInput"
@@ -139,7 +140,7 @@ export default class CarCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Input
             type="text"
             name="model"
             id="modelInput"
@@ -147,7 +148,7 @@ export default class CarCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Input
             type="number"
             name="year"
             id="yearInput"
@@ -159,7 +160,10 @@ export default class CarCreate extends Component {
             clients={this.state.clientList}
             clientChange={this.clientChange}
           />
-          <button type="submit"> CREAR </button>
+          <Button color="green" type="submit">
+            {" "}
+            CREAR{" "}
+          </Button>
         </form>
         <div>
           <CarList carList={this.state.carList} />

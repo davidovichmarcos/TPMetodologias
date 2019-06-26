@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Input, Button } from "rsuite";
 
 import ClientList from "./ClientList";
 
@@ -80,7 +81,7 @@ export default class ClientCreate extends Component {
             this.submitForm(e);
           }}
         >
-          <input
+          <Input
             type="text"
             name="name"
             id=""
@@ -88,7 +89,7 @@ export default class ClientCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Input
             type="text"
             name="lastName"
             id=""
@@ -96,7 +97,7 @@ export default class ClientCreate extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Input
             type="number"
             name="dni"
             id=""
@@ -105,7 +106,7 @@ export default class ClientCreate extends Component {
             required
             onChange={this.handleChange}
           />
-          <input
+          <Input
             type="number"
             name="phone"
             id=""
@@ -113,21 +114,23 @@ export default class ClientCreate extends Component {
             placeholder="Telefono"
             onChange={this.handleChange}
           />
-          <input
+          <Input
             type="email"
             name="email"
             id=""
             placeholder="Email"
             onChange={this.handleChange}
           />
-          <input
+          <Input
             type="text"
             name="address"
             id=""
             placeholder="Direccion"
             onChange={this.handleChange}
           />
-          <button type="submit"> CREAR </button>
+          <Button color="green" type="submit">
+            CREAR
+          </Button>
         </form>
         {this.state.clientList.length > 0 ? (
           <ClientList clientList={this.state.clientList} />
