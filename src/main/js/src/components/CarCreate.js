@@ -40,11 +40,11 @@ export default class CarCreate extends Component {
     carList: []
   };
 
-  handleChange = event => {
+  handleChange = (value, event) => {
     this.setState({
       formData: {
         ...this.state.formData,
-        [event.target.name]: event.target.value
+        [event.target.name]: value
       }
     });
   };
